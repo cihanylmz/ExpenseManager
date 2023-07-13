@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Security.Claims;
 
-
+[Authorize]
 [ApiController]
 [Route("api/transactions")]
 public class TransactionsController : ControllerBase
@@ -22,10 +22,10 @@ public class TransactionsController : ControllerBase
     [HttpGet("sum")]
     public async Task<ActionResult<decimal>> GetSumOfTransactions()
     {
-        string userId = "1";
+        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
         decimal sum = await _context.Transactions
-            .Where(e => e.TransactionUserID == userId)
+            .Where(e => e.TransactionUserID == userId.ToString())
             .SumAsync(e => e.TransactionAmount);
 
         return sum;
