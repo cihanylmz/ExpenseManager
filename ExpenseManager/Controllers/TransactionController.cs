@@ -22,6 +22,7 @@ public class TransactionsController : ControllerBase
     [HttpGet("sum")]
     public async Task<ActionResult<decimal>> GetSumOfTransactions()
     {
+
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
         decimal sum = await _context.Transactions

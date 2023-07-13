@@ -56,7 +56,7 @@ IWebHostEnvironment environment = app.Environment;
 
 app.UseHangfireDashboard();
 
-RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateExpenses(), Cron.Daily);
+RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateExpenses(), Cron.Minutely);
 
 app.MapControllers();
 
