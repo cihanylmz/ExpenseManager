@@ -59,8 +59,12 @@ IWebHostEnvironment environment = app.Environment;
 
 app.UseHangfireDashboard();
 
-string cronExp = "59 23 * * *";
-RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateExpenses(), cronExp);
+string cronDailyExp = "59 23 * * *";
+string cronWeeklyExp = "59 23 * * 1";
+string cronMonthlyExp = "59 23 1 * *";
+RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateDailyExpenses(), cronDailyExp);
+RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateMonthlyExpenses(), cronMonthlyExp);
+RecurringJob.AddOrUpdate<TransactionAggregationJob>(x => x.AggregateWeeklyExpenses(), cronWeeklyExp);
 
 app.MapControllers();
 
